@@ -40,9 +40,21 @@ const fetchSimiliarMovie = async (movieId) => {
   return { similarResponse, creditResponse };
 };
 
+const fetchActorInfo = async (actorId, page = 1) => {
+  const { data: actorBioResponse } = await MOVIE.get(
+    `/person/${actorId}?api_key=${process.env.REACT_APP_API_KEY}`
+  );
+  const { data: actorMoviesResponse } = await MOVIE.get(
+    `/person/${actorId}/movie_credits?api_key=${process.env.REACT_APP_API_KEY}&page=${page}`
+  );
+
+  return { actorBioResponse, actorMoviesResponse };
+};
+
 export {
   fetchMovieByCategories,
   fetchMovieByGenre,
   fetchMovieDetail,
   fetchSimiliarMovie,
+  fetchActorInfo,
 };

@@ -1,4 +1,4 @@
-import { Home, Detail } from "./pages";
+import { Home, Detail, Actors } from "./pages";
 import { Sidebar } from "./components";
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -24,6 +24,12 @@ function App() {
     setLoading(false);
   };
 
+  const handleSearch = (e) => {
+    if (e.keyCode) {
+      setCategory(e.target.value);
+    }
+  };
+
   useEffect(() => {
     if (typeof category === "string") {
       getMovieByCategory(category, page);
@@ -34,14 +40,23 @@ function App() {
 
   return (
     <div className="App flex items-stretch">
-      <Sidebar setCategory={setCategory} />
+      <Sidebar setPage={setPage} setCategory={setCategory} />
       <Routes>
         <Route
           path="/"
           index
-          element={<Home movies={movies} loading={loading} />}
+          element={
+            <Home
+              movies={movies}
+              page={page}
+              setPage={setPage}
+              loading={loading}
+              handleSearch={handleSearch}
+            />
+          }
         />
         <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/actor/:id" element={<Actors />} />
       </Routes>
     </div>
   );

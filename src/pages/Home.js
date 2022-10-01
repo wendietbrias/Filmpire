@@ -2,12 +2,12 @@ import { Sidebar, Navbar, Loading } from "../components";
 import MovieCard from "../components/MovieCard";
 import React from "react";
 
-const Home = React.memo(({ movies, setCategory, loading }) => {
+const Home = React.memo(({ movies, loading, page, setPage, handleSearch }) => {
   if (!movies) return;
 
   return (
     <section className="w-[82%] h-screen overflow-y-scroll">
-      <Navbar />
+      <Navbar handleSearch={handleSearch} page="Home" />
       {loading ? (
         <Loading />
       ) : (
@@ -34,6 +34,20 @@ const Home = React.memo(({ movies, setCategory, loading }) => {
           <div className="grid grid-cols-6 gap-2 px-7 mt-7 mb-7 row-gap-4">
             {Array.isArray(movies) &&
               movies.map((movie, idx) => <MovieCard key={idx} movie={movie} />)}
+          </div>
+          <div className="flex pb-5 items-center justify-center">
+            <button
+              onClick={() => {
+                setPage(page + 1);
+              }}
+              className="bg-blue-500 text-white px-3 py-2 rounded-md font-medium capitalize"
+            >
+              next
+            </button>
+            <span className="mx-3 text-lg font-medium">{page}</span>
+            <button className="bg-blue-500 px-3 py-2  text-white font-medium capitalize rounded-md">
+              prev
+            </button>
           </div>
         </>
       )}

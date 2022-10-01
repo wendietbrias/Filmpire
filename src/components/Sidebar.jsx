@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Category, Genres } from "../constants/navigation";
 
-const Sidebar = ({ setCategory }) => {
+const Sidebar = ({ setCategory, setPage }) => {
   return (
     <section className="w-[18%] h-screen overflow-y-scroll">
       <Link to="/">
@@ -17,7 +17,10 @@ const Sidebar = ({ setCategory }) => {
           {Category.map((category, idx) => (
             <Link to="/">
               <li
-                onClick={() => setCategory(category?.category)}
+                onClick={() => {
+                  setCategory(category?.category);
+                  setPage(1);
+                }}
                 key={idx}
                 className="w-full cursor-pointer hover:bg-gray-100 transition duration-500 flex items-center text-2xl  py-2 px-4"
               >
@@ -38,7 +41,10 @@ const Sidebar = ({ setCategory }) => {
           {Genres.map((category, idx) => (
             <Link to="/">
               <li
-                onClick={() => setCategory(category?.genreId)}
+                onClick={() => {
+                  setCategory(category?.genreId);
+                  setPage(1);
+                }}
                 key={idx}
                 className="w-full cursor-pointer hover:bg-gray-100 transition duration-500 flex items-center text-2xl  py-2 px-4"
               >
